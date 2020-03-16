@@ -6,8 +6,8 @@ MQTT Broker, 支持MQTT 版本 Version 3.1.1
 Klink Mqtt Server by netty
 基于 netty + redis + kafka 实现的MQTT服务broker
 
-使用说明
-功能说明
+##使用说明
+##功能说明
 参考MQTT3.1.1规范实现
 完整的QoS服务质量等级实现
 遗嘱消息, 保留消息及消息分发重试
