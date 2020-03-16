@@ -1,4 +1,4 @@
-# MQTT Broker by golang
+#K-link MQTT Broker by golang
 
 ## About
 
@@ -7,15 +7,13 @@ Golang MQTT Broker, Version 3.1.1
 ## RUNNING
 
 ```
-$ go get github.com/fhmq/hmq
-$ cd $GOPATH/github.com/fhmq/hmq
 $ go run main.go
 ```
 
-## Usage of hmq:
+## Usage
 
 ```
-Usage: hmq [options]
+Usage:
 
 Broker Options:
     -w,  --worker <number>            Worker num to process message, perfer (client num)/10. (default 1024)
@@ -37,7 +35,7 @@ Common Options:
     -h, --help                        Show this message
 ```
 
-### hmq.config
+### .config
 
 ```
 {
@@ -123,8 +121,6 @@ Other Version Of Cluster Based On gRPC: [click here](https://github.com/fhmq/rhm
 - Low memory and CPU
 
 ## License
-
-- Apache License Version 2.0
 
 ## Reference
 
