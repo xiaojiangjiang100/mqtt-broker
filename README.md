@@ -1,41 +1,114 @@
-MQTT Broker By Golang语言
-============
+Free and High Performance MQTT Broker
+About
+Golang MQTT Broker, Version 3.1.1, and Compatible for eclipse paho client and mosquitto-client
 
-MQTT Broker, 支持MQTT 版本 Version 3.1.1
+RUNNING
+$ go get github.com/fhmq/hmq
+$ cd $GOPATH/github.com/fhmq/hmq
+$ go run main.go
+Usage of hmq:
+Usage: hmq [options]
 
-Klink Mqtt Server by netty
-基于 netty + redis + kafka 实现的MQTT服务broker
+Broker Options:
+    -w,  --worker <number>            Worker num to process message, perfer (client num)/10. (default 1024)
+    -p,  --port <port>                Use port for clients (default: 1883)
+         --host <host>                Network host to listen on. (default "0.0.0.0")
+    -ws, --wsport <port>              Use port for websocket monitoring
+    -wsp,--wspath <path>              Use path for websocket monitoring
+    -c,  --config <file>              Configuration file
 
-##使用说明
-##功能说明
-参考MQTT3.1.1规范实现
-完整的QoS服务质量等级实现
-遗嘱消息, 保留消息及消息分发重试
-心跳机制
-MQTT连接认证(可选择是否开启)，目前由clientId,username,password唯一确定一个有效的客户端连接
-SSL方式连接(可选择是否开启)
-主题过滤(支持单主题订阅如 test_topic /mqtt/test --不能以/结尾, 通配符订阅 # /mqtt/# --以#结尾)
-集群功能(可选择是否开启)
-Kafka消息转发功能(可选择是否开启)
-编译执行
-JDK1.8
-项目根目录执行 mvn install
-mqtt-broker 下执行 mvn clean package nutzboot:shade 进行打包
-`java -jar mqtt-broker-xxx.jar
-集群使用
-多机环境集群:
+Logging Options:
+    -d, --debug <bool>                Enable debugging output (default false)
+    -D                                Debug enabled
 
-klink.mqtt.broker.cluster-on=true
-klink.mqtt.broker.kafka.bootstrap.servers=192.168.1.101:9092,192.168.1.102:9093
-redis.mode=cluster
-redis.nodes=192.168.1.103:16379,192.168.1.104:26379
-单机环境集群:
+Cluster Options:
+    -r,  --router  <rurl>             Router who maintenance cluster info
+    -cp, --clusterport <cluster-port> Cluster listen port for others
 
-klink.mqtt.broker.cluster-on=true
-klink.mqtt.broker.kafka.bootstrap.servers=127.0.0.1:9092,127.0.0.1:9093
-redis.mode=normal
-redis.host=127.0.0.1
-## Benchmark Tool
+Common Options:
+    -h, --help                        Show this message
+hmq.config
+{
+	"workerNum": 4096,
+	"port": "1883",
+	"host": "0.0.0.0",
+	"cluster": {
+		"host": "0.0.0.0",
+		"port": "1993"
+	},
+	"router": "127.0.0.1:9888",
+	"wsPort": "1888",
+	"wsPath": "/ws",
+	"wsTLS": true,
+	"tlsPort": "8883",
+	"tlsHost": "0.0.0.0",
+	"tlsInfo": {
+		"verify": true,
+		"caFile": "tls/ca/cacert.pem",
+		"certFile": "tls/server/cert.pem",
+		"keyFile": "tls/server/key.pem"
+	},
+	"plugins": {
+		"auth": "authhttp",
+		"bridge": "kafka"
+	}
+}
+Features and Future
+Supports QOS 0 and 1
 
-* https://github.com/inovex/mqtt-stresser
-* https://github.com/krylovsk/mqtt-benchmark
+Cluster Support
+
+Containerization
+
+Supports retained messages
+
+Supports will messages
+
+Websocket Support
+
+TLS/SSL Support
+
+Auth Support
+
+Auth Connect
+Auth ACL
+Cache Support
+Kafka Bridge Support
+
+Action Deliver
+Regexp Deliver
+HTTP API
+
+Disconnect Connect (future more)
+Share SUBSCRIBE
+| Prefix              | Examples                                  | Publish                      |
+| ------------------- |-------------------------------------------|--------------------------- --|
+| $share/<group>/topic  | mosquitto_sub -t ‘$share/<group>/topic’ | mosquitto_pub -t ‘topic’     |
+Cluster
+ 1, start router for hmq  (https://github.com/fhmq/router.git)
+ 	$ go get github.com/fhmq/router
+ 	$ cd $GOPATH/github.com/fhmq/router
+ 	$ go run main.go
+ 2, config router in hmq.config  ("router": "127.0.0.1:9888")
+ 
+Other Version Of Cluster Based On gRPC: click here
+
+Online/Offline Notification
+ topic:
+     $SYS/broker/connection/clients/<clientID>
+ payload:
+	{"clientID":"client001","online":true/false,"timestamp":"2018-10-25T09:32:32Z"}
+Performance
+High throughput
+
+High concurrency
+
+Low memory and CPU
+
+License
+Apache License Version 2.0
+Reference
+Surgermq.(https://github.com/surgemq/surgemq)
+Benchmark Tool
+https://github.com/inovex/mqtt-stresser
+https://github.com/krylovsk/mqtt-benchmark
