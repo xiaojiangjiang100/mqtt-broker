@@ -1,38 +1,36 @@
-#K-link MQTT Broker by golang
+#Golang语言版本 K-link MQTT Broker 
 
-## About
+## 介绍
 
-Golang MQTT Broker, Version 3.1.1
+支持 MQTT Broker 3.1.1 协议版本
 
-## RUNNING
+## 运行
 
 ```
 $ go run main.go
 ```
 
-## Usage
+## 参数
 
 ```
-Usage:
+参数:
 
-Broker Options:
-    -w,  --worker <number>            Worker num to process message, perfer (client num)/10. (default 1024)
-    -p,  --port <port>                Use port for clients (default: 1883)
-         --host <host>                Network host to listen on. (default "0.0.0.0")
-    -ws, --wsport <port>              Use port for websocket monitoring
-    -wsp,--wspath <path>              Use path for websocket monitoring
-    -c,  --config <file>              Configuration file
+全局 :
+    -w,  --worker <number>            用于处理消息Worker的数量. (默认数量是 1024)
+    -p,  --port <port>                端口号 (默认端口: 1883)
+         --host <host>                主机IP. (默认IP： "0.0.0.0")
+    -ws, --wsport <port>              websocket监听端口
+    -c,  --config <file>              配置文件
 
-Logging Options:
-    -d, --debug <bool>                Enable debugging output (default false)
-    -D                                Debug enabled
+日志 ：
+    -d, --debug <bool>                启用调试输出(默认关闭)
+    -D                                调试启用
 
-Cluster Options:
-    -r,  --router  <rurl>             Router who maintenance cluster info
-    -cp, --clusterport <cluster-port> Cluster listen port for others
-
-Common Options:
-    -h, --help                        Show this message
+集群:
+    -r,  --router  <rurl>             维护集群信息的路由表
+ 
+命令:
+    -h, --help                        帮助
 ```
 
 ### .config
@@ -65,68 +63,28 @@ Common Options:
 }
 ```
 
-### Features and Future
+### 支持的功能列表：
 
-- Supports QOS 0 and 1
-- Cluster Support
-- Containerization
-- Supports retained messages
-- Supports will messages
-- Websocket Support
-- TLS/SSL Support
-- Auth Support
+- 支持 QOS 0 and 1
+- 容器化部署
+- 支持保留消息
+- 支持遗嘱消息
+- 支持Websocket
+- 支持TLS/SSL 
+- 支持Auth 
   - Auth Connect
   - Auth ACL
-  - Cache Support
-- Kafka Bridge Support
-  - Action Deliver
-  - Regexp Deliver
-- HTTP API
-  - Disconnect Connect (future more)
+  - 支持Cache 
+  - 支持Kafka 
 
-### Share SUBSCRIBE
+### 在线/离线 提醒
 
-```
-| Prefix              | Examples                                  | Publish                      |
-| ------------------- |-------------------------------------------|--------------------------- --|
-| $share/<group>/topic  | mosquitto_sub -t ‘$share/<group>/topic’ | mosquitto_pub -t ‘topic’     |
-```
+## 性能
 
-### Cluster
-
-```
- 1, start router for hmq  (https://github.com/fhmq/router.git)
- 	$ go get github.com/fhmq/router
- 	$ cd $GOPATH/github.com/fhmq/router
- 	$ go run main.go
- 2, config router in hmq.config  ("router": "127.0.0.1:9888")
- 
-```
-
-Other Version Of Cluster Based On gRPC: [click here](https://github.com/fhmq/rhmq)
-
-### Online/Offline Notification
-
-```
- topic:
-     $SYS/broker/connection/clients/<clientID>
- payload:
-	{"clientID":"client001","online":true/false,"timestamp":"2018-10-25T09:32:32Z"}
-```
-
-## Performance
-
-- High throughput
-- High concurrency
-- Low memory and CPU
-
-## License
-
-## Reference
-
-- Surgermq.(https://github.com/surgemq/surgemq)
-
-## Benchmark Tool
+- 支持高吞吐
+- 支持高并发
+- 低内存和CPU
+## 压测工具
 
 - https://github.com/inovex/mqtt-stresser
 - https://github.com/krylovsk/mqtt-benchmark
