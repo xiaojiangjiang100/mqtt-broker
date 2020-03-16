@@ -1,8 +1,8 @@
-# Free and High Performance MQTT Broker
+# MQTT Broker by golang
 
 ## About
 
-Golang MQTT Broker, Version 3.1.1, and Compatible for [eclipse paho client](https://github.com/eclipse?utf8=✓&q=mqtt&type=&language=) and mosquitto-client
+Golang MQTT Broker, Version 3.1.1
 
 ## RUNNING
 
