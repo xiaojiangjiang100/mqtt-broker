@@ -1,12 +1,20 @@
-Free and High Performance MQTT Broker
-About
-Golang MQTT Broker, Version 3.1.1, and Compatible for eclipse paho client and mosquitto-client
+# Free and High Performance MQTT Broker
 
-RUNNING
+## About
+
+Golang MQTT Broker, Version 3.1.1, and Compatible for [eclipse paho client](https://github.com/eclipse?utf8=✓&q=mqtt&type=&language=) and mosquitto-client
+
+## RUNNING
+
+```
 $ go get github.com/fhmq/hmq
 $ cd $GOPATH/github.com/fhmq/hmq
 $ go run main.go
-Usage of hmq:
+```
+
+## Usage of hmq:
+
+```
 Usage: hmq [options]
 
 Broker Options:
@@ -27,7 +35,11 @@ Cluster Options:
 
 Common Options:
     -h, --help                        Show this message
-hmq.config
+```
+
+### hmq.config
+
+```
 {
 	"workerNum": 4096,
 	"port": "1883",
@@ -53,62 +65,72 @@ hmq.config
 		"bridge": "kafka"
 	}
 }
-Features and Future
-Supports QOS 0 and 1
+```
 
-Cluster Support
+### Features and Future
 
-Containerization
+- Supports QOS 0 and 1
+- Cluster Support
+- Containerization
+- Supports retained messages
+- Supports will messages
+- Websocket Support
+- TLS/SSL Support
+- Auth Support
+  - Auth Connect
+  - Auth ACL
+  - Cache Support
+- Kafka Bridge Support
+  - Action Deliver
+  - Regexp Deliver
+- HTTP API
+  - Disconnect Connect (future more)
 
-Supports retained messages
+### Share SUBSCRIBE
 
-Supports will messages
-
-Websocket Support
-
-TLS/SSL Support
-
-Auth Support
-
-Auth Connect
-Auth ACL
-Cache Support
-Kafka Bridge Support
-
-Action Deliver
-Regexp Deliver
-HTTP API
-
-Disconnect Connect (future more)
-Share SUBSCRIBE
+```
 | Prefix              | Examples                                  | Publish                      |
 | ------------------- |-------------------------------------------|--------------------------- --|
 | $share/<group>/topic  | mosquitto_sub -t ‘$share/<group>/topic’ | mosquitto_pub -t ‘topic’     |
-Cluster
+```
+
+### Cluster
+
+```
  1, start router for hmq  (https://github.com/fhmq/router.git)
  	$ go get github.com/fhmq/router
  	$ cd $GOPATH/github.com/fhmq/router
  	$ go run main.go
  2, config router in hmq.config  ("router": "127.0.0.1:9888")
  
-Other Version Of Cluster Based On gRPC: click here
+```
 
-Online/Offline Notification
+Other Version Of Cluster Based On gRPC: [click here](https://github.com/fhmq/rhmq)
+
+### Online/Offline Notification
+
+```
  topic:
      $SYS/broker/connection/clients/<clientID>
  payload:
 	{"clientID":"client001","online":true/false,"timestamp":"2018-10-25T09:32:32Z"}
-Performance
-High throughput
+```
 
-High concurrency
+## Performance
 
-Low memory and CPU
+- High throughput
+- High concurrency
+- Low memory and CPU
 
-License
-Apache License Version 2.0
-Reference
-Surgermq.(https://github.com/surgemq/surgemq)
-Benchmark Tool
-https://github.com/inovex/mqtt-stresser
-https://github.com/krylovsk/mqtt-benchmark
+## License
+
+- Apache License Version 2.0
+
+## Reference
+
+- Surgermq.(https://github.com/surgemq/surgemq)
+
+## Benchmark Tool
+
+- https://github.com/inovex/mqtt-stresser
+- https://github.com/krylovsk/mqtt-benchmark
